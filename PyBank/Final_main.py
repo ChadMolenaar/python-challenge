@@ -10,12 +10,11 @@ print ("budget")
 #Variables
 totalMonths = 0
 totalAmount = 0
-totalProfit = []
-netDifference = [] 
+totalProfit = 0
 greatestIncrease = 0
 greatestDecrease = 0
 average = 0
-monthlyProfitChange = []
+monthlyProfitChange = 0
 delta_total = 0
 
 
