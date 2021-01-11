@@ -10,12 +10,11 @@ print ("budget")
 #Variables
 totalMonths = 0
 totalAmount = 0
-totalProfit = []
-netDifference = [] 
+totalProfit = 0
 greatestIncrease = 0
 greatestDecrease = 0
 average = 0
-monthlyProfitChange = []
+monthlyProfitChange = 0
 delta_total = 0
 
 
@@ -44,9 +43,9 @@ with open(file_to_load) as data:
 
         firstPLvalue = row[1]
         
-average = round(delta_total/totalMonths, 2) # calculated after for loop for final values
+average = round(delta_total/totalMonths, 2) 
 
-totalMonths = totalMonths + 1 # offset by one month after average determined 
+totalMonths = totalMonths + 1 
 
        
 print(f'Financial Analysis')
@@ -56,3 +55,14 @@ print(f'Total: ${totalAmount}')
 print(f'Average Change: ${average}')
 print(f'Greatest Increase in Profits: {greatestIncreaseMonth} (${greatestIncrease})')
 print(f'Greatest Decrease in Profits: {greatestDecreaseMonth} (${greatestDecrease})')
+
+output_path = os.path.join("Analysis", "main.txt")
+with open(output_path, 'w') as txt:
+    txt.write(f'Financial Analysis\n'
+f'------------------\n'
+f'Total Months: {totalMonths}\n'
+f'Total: ${totalAmount}\n'
+f'Average Change: ${average}\n'
+f'Greatest Increase in Profits: {greatestIncreaseMonth} (${greatestIncrease})\n'
+f'Greatest Decrease in Profits: {greatestDecreaseMonth} (${greatestDecrease})\n')
+

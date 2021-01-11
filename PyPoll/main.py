@@ -1,44 +1,61 @@
-# Dependencies
-import csv
+#Dependencies
 import os
-
-
+import csv
+#File to Load
 file_to_load = os.path.join("Resources", "election_data.csv")
-print ("election")
-
-# variables
-totalVotes = 0
-Candidate = []
-totalVotesWon = 0
-votesWon = 0
-
-#Total Votes Cast
+#Variables
+candidates = {}
+#Open File
 with open(file_to_load) as data:
- 
+    
     csvReader = csv.reader(data,delimiter=',')
-    
     header = next(csvReader)
-    
     for row in csvReader:
+
+        if row[2] in candidates.keys():
+            candidates[row[2]]+=1
+        else:
+            candidates[row[2]] = 1
+
+        total = candidates.values()
+        total_votes = sum(total)
+            
+        list_candidates = candidates.keys()
+            
+        votes_per = [f'{(x/total_votes)*100:.3f}%' for x in candidates.values()]
         
-        totalVotes = totalVotes +1
+        winner = list(candidates.keys())[list(candidates.values()).index(max(candidates.values()))]
+        winner
+        
+
+
+print('Election Results')
+
+print('--------------------------------')
+
+print(f'Total votes: {int(total_votes)}')
+
+print('---------------------------------')
+i = 0
+for candidate, vote in candidates.items():
+    print(f'{candidate} , {votes_per[i]} , {(vote)}') 
+    i+=1
     
-        totalVotesWon = votes_Won + int(row[2])
+print('------------------------------')
 
-def print_percentages(votes_won):
-    
-    votes = int(votes_won[0])
-    name = str(candidate[2])
-    
-    votes_won = votes + candidate
+print(f'Winner: {winner}')
 
-    # Win percent 
-    win_percent = (votes_won / total_candidate) * 100
+print("------------------------------")
 
-    # If the percentage is greater than 0, print candidate
-    print(f'Total Votes:', totalVotes)
-    print("Votes Won:", votesWon)
-    print(f"Stats for {name}")
-    print(f"WIN PERCENT: {str(win_percent)}")
- 
-
+output_path = os.path.join("Analysis", "main.txt")
+with open(output_path, 'w') as txt:
+    txt.write(f'Election Results\n'
+    f'------------------\n'
+    f'Total votes: {int(total_votes)}\n')
+    #f'{candidate} , {votes_per[i]} , {(vote)}\n'
+    i = 0
+    for candidate, vote in candidates.items():
+        txt.write(f'{candidate} , {votes_per[i]} , {(vote)}\n')
+        i+=1
+    txt.write(f'Winner: {winner}\n'
+    f'------------------------------\n')
